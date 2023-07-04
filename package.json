@@ -1,0 +1,34 @@
+{
+  "name": "project_assesment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satishp21/project-rep.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/satishp21/project-rep/issues"
+  },
+  "homepage": "https://github.com/satishp21/project-rep#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.4.4",
+    "nodemon": "^2.0.22",
+    "sequelize": "^6.32.1"
+  }
+}
