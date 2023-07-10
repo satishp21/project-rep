@@ -9,6 +9,6 @@ router.post('/addproduct', userauthentication.authenticate,  productController.a
 
 router.get('/getproducts:page:selectedValue', userauthentication.authenticate ,  productController.getproducts )
 
-router.delete('/deleteproduct/:productid', userauthentication.authenticate , productController.deleteproduct)
+router.post('/buyproduct', userauthentication.authenticate , productController.buyproduct)
 
 module.exports = router;

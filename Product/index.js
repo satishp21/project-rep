@@ -14,6 +14,13 @@ function addNewProduct(e){
         .then((response) => {
             // console.log(response,"this is the resposwe you are lookigng for")
         addNewProducttoUI(response.data.product);
+
+        //making form emty after entering product
+        e.target.productname.value = ''
+        e.target.description.value = ''
+        e.target.quantity.value = ''
+        e.target.price.value = ''
+        
     }).catch(err => showError(err))
 }
 
@@ -29,15 +36,12 @@ function RPPvalue(){
             response.data.products.forEach(product => {
                 addNewProducttoUI(product);
             })
-            // console.log("this is response.data",response.data)
             showPagination(response.data.info)
     }).
     catch(err => {
         console.log(err)
         showError(err)
     })
-    
-
 }
 
 function parseJwt (token) {
@@ -63,7 +67,7 @@ window.addEventListener('DOMContentLoaded', ()=> {
             response.data.products.forEach(product => {
                 addNewProducttoUI(product);
             })
-            // console.log("this is response.data",response.data)
+            console.log("this is response.data",response.data)
             showPagination(response.data.info)
     }).catch(err => {
         console.log(err)
@@ -73,33 +77,24 @@ window.addEventListener('DOMContentLoaded', ()=> {
 
 function addNewProducttoUI(product){
     const parentElement = document.getElementById('listOfProducts');
-    const ProductElemId = `expense-${product.id}`;
+    const ProductElemId = `Product-${product.id}`;
     parentElement.innerHTML += `
         <li id=${ProductElemId}>
         Name ${product.name} - Description ${product.description} - quantity ${product.quantity} - price ${product.price}
-            <button onclick="deleteProduct(event, '${product.id}')">
-                Delete Product
+            <button onclick="buyProduct(event, '${product.id}')">
+                Buy Product
             </button>
-            <button onclick="BuyProduct(event, '${product.id}')">
-            Buy Product
         </button>
         </li>`
 }
 
-function deleteProduct(e, productid) {
+function buyProduct(e, productid) {
     const token = localStorage.getItem('token')
-    axios.delete(`http://localhost:3000/product/deleteproduct/${productid}`,  { headers: {"Authorization" : token} }).then(() => {
-        removeProductfromUI(productid);
-    }).catch((err => {
-        showError(err);
-    }))
-}
-
-function BuyProduct(e, productid) {
-    const product = {
-        productid
-    }
-    axios.post(`http://localhost:3000/order/addorder`, product, { headers: {"Authorization" : token} }).then(() => { console.log("buyed product")
+    console.log('tokennnnnnnnnnnnnn',token)
+    const prodid = {productid}
+    axios.post(`http://localhost:3000/product/buyproduct`,prodid, { headers: {"Authorization" : token} }).then(() => {
+        alert('product added to orders')
+        window.location.reload()
     }).catch((err => {
         showError(err);
     }))
@@ -107,11 +102,6 @@ function BuyProduct(e, productid) {
 
 function showError(err){
     document.body.innerHTML += `<div style="color:red;"> ${err}</div>`
-}
-
-function removeProductfromUI(productid){
-    const productElemId = `product-${productid}`;
-    document.getElementById(productElemId).remove();
 }
 
 function showPagination({currentPage,hasNextPage,hasPreviousPage,nextPage,previousPage,lastPage}){

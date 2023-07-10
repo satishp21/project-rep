@@ -18,12 +18,10 @@ const sequelize = require('./util/database');
 const User = require('./models/users');
 const Product = require('./models/product');
 const Order = require('./models/orders');
-// const Forgotpassword = require('./models/forgotpassword');
 
 const userRoutes = require('./routes/user')
 const productRoutes = require('./routes/product')
 const orderRoutes = require('./routes/order')
-// const resetPasswordRoutes = require('./routes/resetpassword')
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname,'access.log'),{flags:'a'})
 
@@ -46,11 +44,11 @@ app.use('/order', orderRoutes)
 User.hasMany(Order);
 Order.belongsTo(User);
 
-Product.belongsToMany(User, { through: 'ProductUser' });
-User.belongsToMany(Product, { through: 'ProductUser' });
+// Product.belongsToMany(Order, { through: 'productorder' });
+// Order.belongsToMany(Product, { through: 'productorder' });
 
-
-sequelize.sync()
+// sequelize.sync({force:true})
+sequelize.sync()    
     .then(() => {
         app.listen(process.env.PORT);
     })
