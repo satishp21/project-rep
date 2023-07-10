@@ -40,15 +40,11 @@ app.use('/user', userRoutes)
 app.use('/product', productRoutes)
 app.use('/order', orderRoutes)
 
-
 User.hasMany(Order);
 Order.belongsTo(User);
 
-// Product.belongsToMany(Order, { through: 'productorder' });
-// Order.belongsToMany(Product, { through: 'productorder' });
-
 // sequelize.sync({force:true})
-sequelize.sync()    
+sequelize.sync()
     .then(() => {
         app.listen(process.env.PORT);
     })

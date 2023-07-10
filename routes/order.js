@@ -5,6 +5,6 @@ const userauthentication = require('../middleware/auth')
 
 const router = express.Router();
 
-router.get('/getorders',userauthentication.authenticate, orderController.getorders);
+router.get('/getorders:page:selectedValue',userauthentication.authenticate, orderController.getorders);
 
 module.exports = router;
